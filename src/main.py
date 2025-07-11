@@ -26,6 +26,9 @@ async def return_uploaded_image(
 
 @app.post("/generate")
 async def generate_image(prompt: str = Form(...), sketch: UploadFile = File(...)):
+
+    print("Prompt", prompt)
+
     sketch_bytes = await sketch.read()
     sketch_img = (
         Image.open(io.BytesIO(sketch_bytes)).convert("RGB").resize((1024, 1024))
@@ -34,6 +37,7 @@ async def generate_image(prompt: str = Form(...), sketch: UploadFile = File(...)
     generated = await generate(prompt=prompt, image=sketch_img)
     buf = io.BytesIO()
     generated.save(buf, format="PNG")
+    buf.seek(0)
     return StreamingResponse(buf, media_type="image/png")
 
 
