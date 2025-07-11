@@ -9,6 +9,21 @@ import io
 app = FastAPI()
 
 
+@app.post("/return")
+async def return_uploaded_image(
+    prompt: str = Form(...), sketch: UploadFile = File(...)
+):
+    sketch_bytes = await sketch.read()
+    sketch_img = (
+        Image.open(io.BytesIO(sketch_bytes)).convert("RGB").resize((1024, 1024))
+    )
+
+    buf = io.BytesIO()
+    sketch_img.save(buf, format="PNG")
+    buf.seek(0)
+    return StreamingResponse(buf, media_type="image/png")
+
+
 @app.post("/generate")
 async def generate_image(prompt: str = Form(...), sketch: UploadFile = File(...)):
     sketch_bytes = await sketch.read()
