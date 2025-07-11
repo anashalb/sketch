@@ -1,0 +1,40 @@
+[project]
+name = "generate"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+
+package-mode = false
+packages = [{ include = "src", from = "." }]
+
+readme = "README.md"
+requires-python = "<3.14,>=3.9"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.dependencies]
+asyncio = "^3.4.3"
+dotenv = "^0.9.9"
+diffusers = "^0.34.0"
+transformers = "^4.53.1"
+accelerate = "^1.8.1"
+safetensors = "^0.5.3"
+xformers = "^0.0.31.post1"
+controlnet-aux = "^0.0.10"
+mediapipe = "^0.10.21"
+
+#[[tool.poetry.source]]
+#name = "torch-nightly"
+#url = "https://download.pytorch.org/whl/nightly/cu128"
+#priority = "supplemental"
+fastapi = "^0.116.0"
+file = "^0.3.0"
+form = "^0.0.1"
+python-multipart = "^0.0.20"
+uvicorn = "^0.35.0"
+
